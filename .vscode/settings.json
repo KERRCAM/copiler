@@ -17,6 +17,7 @@
         "titleBar.activeForeground": "#e7e7e7",
         "titleBar.inactiveBackground": "#5e496a99",
         "titleBar.inactiveForeground": "#e7e7e799"
+        "editorError.foreground": "#00000000",
     },
     "peacock.color": "#5e496a"
 }
