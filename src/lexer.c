@@ -9,7 +9,6 @@
 
 char* readInput(char* path){
 
-
     FILE* fp = fopen(path, "rb");
 
     char* input = malloc(1);
@@ -29,11 +28,35 @@ char* readInput(char* path){
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 
+scanner* newScanner(char* path){
 
-iterateScanner(scanner* s){
+    scanner* s = calloc(1, sizeof(*s));
+
+    s->input = readInput(path);
+    s->currChar = s->input[0];
+    s->line = 0;
+    s->pos = 0;
+
+    return s;
+
+}
+
+/*--------------------------------------------------------------------------------------------------------------------*/
+
+void deleteScanner(scanner* s){
+
+    free(s->input);
+    free(s);
+
+}
+
+/*--------------------------------------------------------------------------------------------------------------------*/
+
+
+void iterateScanner(scanner* s){
 
     s->pos++;
-    s->currChar = s->input[pos];
+    s->currChar = s->input[s->pos];
 
 }
 
@@ -52,9 +75,9 @@ void skipWhiteSpace(scanner* s){
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 
-void lexer(){
+void lexicalScan(){
 
-    scanner* s = calloc(1, sizeof(*s));
+    
 
 }
 

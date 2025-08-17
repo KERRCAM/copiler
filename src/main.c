@@ -8,6 +8,10 @@
 
 int main(){
 
+    char* path = "testFiles/basicMath.txt";
+
+    scanner* s = newScanner(path);
+
     return 0;
 
 }

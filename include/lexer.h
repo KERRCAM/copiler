@@ -7,6 +7,7 @@
 
 
 /*--------------------------------------------------------------------------------------------------------------------*/
+// STRUCTS
 
 typedef struct SCANNER{
 
@@ -18,8 +19,19 @@ typedef struct SCANNER{
 } scanner;
 
 /*--------------------------------------------------------------------------------------------------------------------*/
+// FUNCTIONS
 
+char* readInput(char* path);
 
+scanner* newScanner(char* path);
+
+void deleteScanner(scanner* s);
+
+void iterateScanner(scanner* s);
+
+void skipWhiteSpace(scanner* s);
+
+void lexicalScan();
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 
