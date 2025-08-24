@@ -32,18 +32,19 @@ char* readInput(char* path){
 
 int main(){
 
-    char* srcPath = "testFiles/basicMath.txt";
+    char* srcPath = "testFiles/singleExp.txt";
     char* input = readInput(srcPath);
 
     scanner* s = newScanner(input);
 
     lexer(s);
 
-    FILE* fp = fopen("debug/lexerOutput", "w");
+    // Lexer test output
+    // FILE* fp = fopen("debug/lexerOutput", "w");
 
-    for (int i = 0; i < s->tokensSize; i++){
-        fprintf(fp, "Type: %d  |  Data: %s\n", s->tokens[i].tokenType, s->tokens[i].tokenData);
-    }
+    // for (int i = 0; i < s->tokensSize; i++){
+    //     fprintf(fp, "Type: %d  |  Data: %s\n", s->tokens[i].tokenType, s->tokens[i].tokenData);
+    // }
 
     deleteScanner(s);
 

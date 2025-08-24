@@ -131,7 +131,6 @@ void scanToken(scanner* s){
             default:
                 if (isspace(s->currChar)){ skipWhiteSpace(s);}
                 else if (isdigit(s->currChar)){ scanInt(s);}
-                //else if (isalpha(s->currChar) || ispunct(s->currChar)){ scanString(s);}
                 else{ exit = true;}
         }
         if (exit == true){
@@ -148,6 +147,7 @@ void lexer(scanner* s){
 
     iterateScanner(s);
     scanToken(s);
+    addToken(s, newStaticToken(EOF_TOKEN, EOF)); // End of tokens marker so a while loop can be used to iterate on it
 
 }
 

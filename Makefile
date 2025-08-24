@@ -18,5 +18,5 @@ c:
 asm: assembly/test.o
 	ld -o $(BUILD_DIR)/test assembly/test.o -lSystem -syslibroot `xcrun -sdk macosx --show-sdk-path` -e _start -arch arm64
 
-test.o: assembly/test.s
-	as -o assembly/test.o assembly/test.s
+test.o: assembly/test.asm
+	as -o assembly/test.o assembly/test.asm

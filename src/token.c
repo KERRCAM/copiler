@@ -7,12 +7,12 @@
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 
-token* newDynamicToken(int tokenType){
+token* newDynamicToken(int type){
 
     token* t = calloc(1, sizeof(*t));
 
-    t->tokenType = tokenType;
-    t->tokenData = NULL;
+    t->type = type;
+    t->data = NULL;
     t->dataLength = 1;
 
     return t;
@@ -21,13 +21,13 @@ token* newDynamicToken(int tokenType){
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 
-token* newStaticToken(int tokenType, char tokenData){
+token* newStaticToken(int type, char data){
 
     token* t = calloc(1, sizeof(*t));
-    t->tokenData = calloc(1, sizeof(char));
+    t->data = calloc(1, sizeof(char));
 
-    t->tokenType = tokenType;
-    t->tokenData[0] = tokenData;
+    t->type = type;
+    t->data[0] = data;
     t->dataLength = 1;
 
     return t;
@@ -39,7 +39,7 @@ token* newStaticToken(int tokenType, char tokenData){
 
 void deleteToken(token* t){
 
-    free(t->tokenData);
+    free(t->data);
     free(t);
 
 }
@@ -48,9 +48,9 @@ void deleteToken(token* t){
 
 void buildTokenData(token* t, char c){
 
-    t->tokenData = realloc(t->tokenData, t->dataLength + 1);
-    t->tokenData[t->dataLength - 1] = c;
-    t->tokenData[t->dataLength] = '\0';
+    t->data = realloc(t->data, t->dataLength + 1);
+    t->data[t->dataLength - 1] = c;
+    t->data[t->dataLength] = '\0';
     t->dataLength++;
 
 }

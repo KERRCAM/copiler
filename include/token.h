@@ -10,8 +10,8 @@
 /*--------------------------------------------------------------------------------------------------------------------*/
 
 enum tokenType{
+    EOF_TOKEN,
     WHITESPACE,
-    WORD,
     NUMBER,
     PLUS,
     MINUS,
@@ -23,17 +23,17 @@ enum tokenType{
 
 typedef struct TOKEN{
 
-    int tokenType;
+    int type;
     int dataLength;
-    char* tokenData;
+    char* data;
 
 } token;
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 
-token* newDynamicToken(int tokentype);
+token* newDynamicToken(int type);
 
-token* newStaticToken(int tokentype, char tokenData);
+token* newStaticToken(int type, char data);
 
 void deleteToken(token* t);
 
