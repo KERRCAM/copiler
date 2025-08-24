@@ -1,0 +1,5 @@
+#!/bin/bash
+TBD=____
+make
+make r target=TBD
+make asm target=TBD

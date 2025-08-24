@@ -12,8 +12,8 @@
 typedef struct AST_NODE{
 
     token* attributes;
-    astNode* left;
-    astNode* right;
+    struct AST_NODE* left;
+    struct AST_NODE* right;
 
 } astNode;
 
@@ -21,6 +21,7 @@ typedef struct AST_NODE{
 /*--------------------------------------------------------------------------------------------------------------------*/
 
 astNode* newAstNode(token* t);
+
 void deleteAstNode(astNode* node); // recursively frees the whole tree if called on root node
 
 /*--------------------------------------------------------------------------------------------------------------------*/

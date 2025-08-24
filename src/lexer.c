@@ -90,22 +90,6 @@ void scanNumber(scanner* s){ // (not currently accounting for non integers so ev
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 
-void scanString(scanner* s){
-
-    token* t = newDynamicToken(WORD);
-    s->currToken = &t;
-
-    while (isalpha(s->currChar) || ispunct(s->currChar)){
-        buildTokenData(*s->currToken, s->currChar);
-        iterateScanner(s);
-    }
-
-    addToken(s, *s->currToken);
-
-}
-
-/*--------------------------------------------------------------------------------------------------------------------*/
-
 void scanToken(scanner* s){
 
     bool exit = false;
