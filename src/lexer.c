@@ -64,7 +64,7 @@ void skipWhiteSpace(scanner* s){
 
 void scanInt(scanner* s){ // currently doing job of number (not currently accounting for non integers)
 
-    token* t = newToken(NUMBER);
+    token* t = newDynamicToken(NUMBER);
     s->currToken = &t;
 
     while (isdigit(s->currChar)){
@@ -88,7 +88,7 @@ void scanNumber(scanner* s){ // (not currently accounting for non integers so ev
 
 void scanString(scanner* s){
 
-    token* t = newToken(WORD);
+    token* t = newDynamicToken(WORD);
     s->currToken = &t;
 
     while (isalpha(s->currChar) || ispunct(s->currChar)){
@@ -105,6 +105,24 @@ void scanString(scanner* s){
 void scanToken(scanner* s){
 
     while(s->currChar != EOF){
+        switch (s->currChar){
+            case '+':
+                addToken(s, newStaticToken(PLUS, '+'));
+                iterateScanner(s);
+                break;
+            case '-':
+                addToken(s, newStaticToken(MINUS, '-'));
+                iterateScanner(s);
+                break;
+            case '*':
+                addToken(s, newStaticToken(MULTIPLY, '*'));
+                iterateScanner(s);
+                break;
+            case '/':
+                addToken(s, newStaticToken(DIVIDE, '/'));
+                iterateScanner(s);
+                break;
+        }
         if (isspace(s->currChar)){ skipWhiteSpace(s);}
         else if (isdigit(s->currChar)){ scanInt(s);}
         else if (isalpha(s->currChar) || ispunct(s->currChar)){ scanString(s);}

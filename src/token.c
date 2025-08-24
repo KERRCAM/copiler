@@ -7,12 +7,27 @@
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 
-token* newToken(int tokenType){
+token* newDynamicToken(int tokenType){
 
     token* t = calloc(1, sizeof(*t));
 
     t->tokenType = tokenType;
     t->tokenData = NULL;
+    t->dataLength = 1;
+
+    return t;
+
+}
+
+/*--------------------------------------------------------------------------------------------------------------------*/
+
+token* newStaticToken(int tokenType, char tokenData){
+
+    token* t = calloc(1, sizeof(*t));
+    t->tokenData = calloc(1, sizeof(char));
+
+    t->tokenType = tokenType;
+    t->tokenData[0] = tokenData;
     t->dataLength = 1;
 
     return t;

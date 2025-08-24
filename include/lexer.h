@@ -38,8 +38,6 @@ void scanNumber(scanner* s);
 
 void scanString(scanner* s);
 
-void scanUnknown(scanner* s);
-
 void scanToken(scanner* s);
 
 void lexer(scanner* s);
