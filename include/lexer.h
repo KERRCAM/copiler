@@ -15,6 +15,8 @@ typedef struct SCANNER{
     char currChar;
     char* input;
     int tokensSize;
+    int lineNumber;
+    int columnNumber;
     token** currToken;
     token* tokens;
 

@@ -16,6 +16,8 @@ scanner* newScanner(char* input){
     s->input = input;
     s->tokens = calloc(1, sizeof(token));
     s->tokensSize = 1;
+    s->lineNumber = 1;
+    s->columnNumber = 0;
 
     return s;
 
@@ -47,6 +49,7 @@ void iterateScanner(scanner* s){
 
     s->pos++;
     s->currChar = s->input[s->pos];
+    s->columnNumber++;
 
 }
 
@@ -55,6 +58,7 @@ void iterateScanner(scanner* s){
 void skipWhiteSpace(scanner* s){
 
     while (isspace(s->currChar)){
+        if (s->currChar == '\n'){ s->lineNumber++; s->columnNumber = 0;}
         iterateScanner(s);
     }
 
@@ -104,6 +108,8 @@ void scanString(scanner* s){
 
 void scanToken(scanner* s){
 
+    bool exit = false;
+
     while(s->currChar != EOF){
         switch (s->currChar){
             case '+':
@@ -122,10 +128,16 @@ void scanToken(scanner* s){
                 addToken(s, newStaticToken(DIVIDE, '/'));
                 iterateScanner(s);
                 break;
+            default:
+                if (isspace(s->currChar)){ skipWhiteSpace(s);}
+                else if (isdigit(s->currChar)){ scanInt(s);}
+                //else if (isalpha(s->currChar) || ispunct(s->currChar)){ scanString(s);}
+                else{ exit = true;}
         }
-        if (isspace(s->currChar)){ skipWhiteSpace(s);}
-        else if (isdigit(s->currChar)){ scanInt(s);}
-        else if (isalpha(s->currChar) || ispunct(s->currChar)){ scanString(s);}
+        if (exit == true){
+            printf("ERROR: Unrecognised character in line %d at column %d\n", s->lineNumber, s->columnNumber);
+            break;
+        }
     }
 
 }
