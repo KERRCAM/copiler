@@ -52,17 +52,11 @@ void iterateScanner(scanner* s){
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 
-void scanWhiteSpace(scanner* s){
-
-    token* t = newToken(WHITESPACE);
-    s->currToken = &t;
+void skipWhiteSpace(scanner* s){
 
     while (isspace(s->currChar)){
-        buildTokenData(*s->currToken, s->currChar);
         iterateScanner(s);
     }
-
-    addToken(s, *s->currToken);
 
 }
 
@@ -108,31 +102,12 @@ void scanString(scanner* s){
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 
-void scanUnknown(scanner* s){ // want to look into more latter but if chars can still be compared its okay for now
-
-    token* t = newToken(UNKNOWN);
-    s->currToken = &t;
-
-    while (    isspace(s->currChar) == false
-            && isdigit(s->currChar) == false
-            && isalpha(s->currChar) == false
-            && ispunct(s->currChar) == false){
-        buildTokenData(*s->currToken, s->currChar);
-        iterateScanner(s);
-    }
-
-    addToken(s, *s->currToken);
-}
-
-/*--------------------------------------------------------------------------------------------------------------------*/
-
 void scanToken(scanner* s){
 
     while(s->currChar != EOF){
-        if (isspace(s->currChar)){ scanWhiteSpace(s);}
+        if (isspace(s->currChar)){ skipWhiteSpace(s);}
         else if (isdigit(s->currChar)){ scanInt(s);}
         else if (isalpha(s->currChar) || ispunct(s->currChar)){ scanString(s);}
-        else {scanUnknown(s);}
     }
 
 }
@@ -141,6 +116,7 @@ void scanToken(scanner* s){
 
 void lexer(scanner* s){
 
+    iterateScanner(s);
     scanToken(s);
 
 }

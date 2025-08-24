@@ -30,7 +30,7 @@ void addToken(scanner* s, token* t);
 
 void iterateScanner(scanner* s);
 
-void scanWhiteSpace(scanner* s);
+void skipWhiteSpace(scanner* s);
 
 void scanInt(scanner* s);
 
