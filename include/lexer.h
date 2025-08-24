@@ -1,37 +1,48 @@
 #ifndef LEXER_H
 #define LEXER_H
+
 // LIBRARY IMPORTS
 
 
 // LOCAL IMPORTS
-
+#include <token.h>
 
 /*--------------------------------------------------------------------------------------------------------------------*/
-// STRUCTS
 
 typedef struct SCANNER{
 
     int pos;
-    int line;
     char currChar;
     char* input;
+    int tokensSize;
+    token** currToken;
+    token* tokens;
 
 } scanner;
 
 /*--------------------------------------------------------------------------------------------------------------------*/
-// FUNCTIONS
 
-char* readInput(char* path);
-
-scanner* newScanner(char* path);
+scanner* newScanner(char* input);
 
 void deleteScanner(scanner* s);
 
+void addToken(scanner* s, token* t);
+
 void iterateScanner(scanner* s);
 
-void skipWhiteSpace(scanner* s);
+void scanWhiteSpace(scanner* s);
 
-void lexicalScan();
+void scanInt(scanner* s);
+
+void scanNumber(scanner* s);
+
+void scanString(scanner* s);
+
+void scanUnknown(scanner* s);
+
+void scanToken(scanner* s);
+
+void lexer(scanner* s);
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 

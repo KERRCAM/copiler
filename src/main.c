@@ -1,16 +1,51 @@
 // LIBRARY IMPORTS
-
+#include <stdio.h>
+#include <stdlib.h>
 
 // LOCAL IMPORTS
 #include <lexer.h>
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 
+char* readInput(char* path){
+
+    FILE* fp = fopen(path, "rb");
+
+    char* input = malloc(1);
+
+    int c;
+    int i = 0;
+
+    while((c = fgetc(fp)) != EOF){
+        input[i] = c;
+        i++;
+        input = realloc(input, i + 1);
+    }
+
+    input[i] = EOF;
+
+    return input;
+
+}
+
+/*--------------------------------------------------------------------------------------------------------------------*/
+
 int main(){
 
-    char* path = "testFiles/basicMath.txt";
+    char* srcPath = "testFiles/basicMath.txt";
+    char* input = readInput(srcPath);
 
-    scanner* s = newScanner(path);
+    scanner* s = newScanner(input);
+
+    lexer(s);
+
+    FILE* fp = fopen("debug/lexerOutput", "w");
+
+    for (int i = 0; i < s->tokensSize; i++){
+        fprintf(fp, "Type: %d  |  Data: %s\n", s->tokens[i].tokenType, s->tokens[i].tokenData);
+    }
+
+    deleteScanner(s);
 
     return 0;
 
