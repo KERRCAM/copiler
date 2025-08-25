@@ -24,6 +24,7 @@ typedef struct AST_POINTER{
 
     int i;
     token* tokens;
+    token** currToken;
 
 } astPtr;
 
@@ -33,9 +34,7 @@ astPtr* newAstPtr(token* tokens);
 
 void deleteAstPtr(astPtr* ap);
 
-int getPrecedence(astPtr* ap, int tokenType);
-
-astNode* parsePrimary(astPtr* ap);
+int getPrecedence(token* t);
 
 astNode* parseExpression(astPtr* ap, int preLvl);
 

@@ -22,6 +22,7 @@
     "peacock.color": "#5e496a",
     "files.associations": {
         "token.h": "c",
-        "ctype.h": "c"
+        "ctype.h": "c",
+        "ast.h": "c"
     }
 }

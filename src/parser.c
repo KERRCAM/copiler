@@ -13,7 +13,10 @@ astPtr* newAstPtr(token* tokens){
 
     ap->tokens = tokens;
     ap->i = 1;
-
+    token* t = &tokens[1];
+    printf("%d\n", t->type);
+    ap->currToken = &t;
+    printf("%d\n", (*ap->currToken)->type);
     return ap;
 
 }
@@ -28,15 +31,9 @@ void deleteAstPtr(astPtr* ap){
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 
-int getPrecedence(astPtr* ap, int tokenType){
+int getPrecedence(token* t){
 
-    int p = precedence[tokenType];
-
-    if (p == 0){
-        printf("data: %s\n", ap->tokens[ap->i].data);
-        printf("ERROR: Invalid syntax on line %d (GP)\n", ap->tokens[ap->i].line);
-        exit(1);
-    }
+    int p = precedence[t->type];
 
     return p;
 
@@ -44,19 +41,11 @@ int getPrecedence(astPtr* ap, int tokenType){
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 
-astNode* parsePrimary(astPtr* ap){
+void iterateAstPtr(astPtr* ap){
 
-    astNode* node;
-
-    if (ap->tokens[ap->i].type != NUMBER){
-        printf("ERROR: Invalid syntax on line %d (PP)\n", ap->tokens[ap->i].line);
-        exit(1);
-    }
-
-    node = newAstLeafNode(&ap->tokens[ap->i]);
     ap->i++;
-
-    return node;
+    token* t = &ap->tokens[ap->i];
+    ap->currToken = &t;
 
 }
 
@@ -64,30 +53,47 @@ astNode* parsePrimary(astPtr* ap){
 
 astNode* parseExpression(astPtr* ap, int preLvl){
 
-    astNode* left;
-    astNode* right;
+    astNode* left = newAstLeafNode(newStaticToken(-1, EOF));
+    astNode* parent = NULL;
 
-    left = parsePrimary(ap);
-
-    if (ap->tokens[ap->i].data == EOF_TOKEN){
-        return left;
+    // printf("%s\n", (*ap->currToken)->data);
+    // printf("%d\n", (*ap->currToken)->type);
+    if ((*ap->currToken)->type == NUMBER){
+        parent = newAstLeafNode(*ap->currToken);
+    } else {
+        printf("err\n");
     }
 
-    while(getPrecedence(ap, ap->tokens[ap->i].type) > preLvl){
+    // printf("FIRST P: %s, %d\n\n", parent->attributes->data, preLvl);
 
-        ap->i++;
+    iterateAstPtr(ap);
 
-        right = parseExpression(ap, precedence[ap->tokens[ap->i].type]);
+    // printf("%s\n", (*ap->currToken)->data);
+    // printf("%s\n", parent->attributes->data);
 
-        left = newAstNode(&ap->tokens[ap->i], left, right);
+    if ((*ap->currToken)->type == EOF_TOKEN){ return parent;}
 
-        if (ap->tokens[ap->i].data == EOF_TOKEN){
-            return left;
-        }
-
+    if (getPrecedence(*ap->currToken) > preLvl){
+        *left = *parent;
+        // printf("c: %s\n", parent->attributes->data);
+        left->attributes->data[0] = 'H';
+        // printf("c: %s\n", parent->attributes->data);
+    } else {
+        parent->left = newAstLeafNode(*ap->currToken);
     }
 
-    return left;
+    // printf("SECOND P: %s, %d\n", parent->attributes->data, preLvl);
+    // printf("SECOND L: %s, %d\n\n", parent->left->attributes->data, preLvl);
+
+    preLvl = getPrecedence(*ap->currToken);
+    iterateAstPtr(ap);
+    parent->right = parseExpression(ap, preLvl);
+
+    // printf("THIRD P: %s, %d\n", parent->attributes->data, preLvl);
+    // printf("THIRD L: %s, %d\n", parent->right->attributes->data, preLvl);
+    // printf("THIRD R: %s, %d\n\n", parent->left->attributes->data, preLvl);
+
+    return parent;
 
 }
 
@@ -95,15 +101,29 @@ astNode* parseExpression(astPtr* ap, int preLvl){
 
 astNode* parser(astPtr* ap){
 
+    printf("%d\n", (*ap->currToken)->type);
+
     if (ap->tokens[ap->i].data == EOF_TOKEN){
         printf("WARNING: File is empty\n");
         exit(0);
     }
 
-    astNode* root = parseExpression(ap, precedence[ap->tokens[ap->i].type]);
+    astNode* root = parseExpression(ap, -1);
 
     return root;
 
 }
 
 /*--------------------------------------------------------------------------------------------------------------------*/
+
+
+/*
+
+if number Y else N
+next
+if opp Y
+
+
+exp(ap, )
+
+*/
