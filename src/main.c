@@ -4,6 +4,7 @@
 
 // LOCAL IMPORTS
 #include <lexer.h>
+#include <parser.h>
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 
@@ -40,11 +41,15 @@ int main(){
     lexer(s);
 
     // Lexer test output
-    // FILE* fp = fopen("debug/lexerOutput", "w");
+    FILE* fp = fopen("debug/lexerOutput", "w");
 
-    // for (int i = 0; i < s->tokensSize; i++){
-    //     fprintf(fp, "Type: %d  |  Data: %s\n", s->tokens[i].tokenType, s->tokens[i].tokenData);
-    // }
+    for (int i = 0; i < s->tokensSize; i++){
+        fprintf(fp, "Type: %d  |  Data: %s\n", s->tokens[i].type, s->tokens[i].data);
+    }
+
+    astPtr* ap = newAstPtr(s->tokens);
+
+    parser(ap);
 
     deleteScanner(s);
 

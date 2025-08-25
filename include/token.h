@@ -11,7 +11,6 @@
 
 enum tokenType{
     EOF_TOKEN,
-    WHITESPACE,
     NUMBER,
     PLUS,
     MINUS,
@@ -26,6 +25,7 @@ typedef struct TOKEN{
     int type;
     int dataLength;
     char* data;
+    int line;
 
 } token;
 

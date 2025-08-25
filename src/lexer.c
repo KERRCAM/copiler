@@ -18,6 +18,8 @@ scanner* newScanner(char* input){
     s->tokensSize = 1;
     s->lineNumber = 1;
     s->columnNumber = 0;
+    s->pos = 0;
+    s->currChar = input[0];
 
     return s;
 
@@ -38,8 +40,10 @@ void deleteScanner(scanner* s){
 void addToken(scanner* s, token* t){
 
     s->tokens = realloc(s->tokens, (s->tokensSize * sizeof(token)) + sizeof(token));
+    t->line = s->lineNumber;
     s->tokens[s->tokensSize] = *t;
     s->tokensSize++;
+
 
 }
 
@@ -129,7 +133,6 @@ void scanToken(scanner* s){
 
 void lexer(scanner* s){
 
-    iterateScanner(s);
     scanToken(s);
     addToken(s, newStaticToken(EOF_TOKEN, EOF)); // End of tokens marker so a while loop can be used to iterate on it
 

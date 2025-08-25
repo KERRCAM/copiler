@@ -6,13 +6,27 @@
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 
-astNode* newAstNode(token* t){
+astNode* newAstLeafNode(token* t){
 
     astNode* node = calloc(1, sizeof(*node));
 
     node->attributes = t;
     node->left = NULL;
     node->right = NULL;
+
+    return node;
+
+}
+
+/*--------------------------------------------------------------------------------------------------------------------*/
+
+astNode* newAstNode(token* t, astNode* left, astNode* right){
+
+    astNode* node = calloc(1, sizeof(*node));
+
+    node->attributes = t;
+    node->left = left;
+    node->right = right;
 
     return node;
 

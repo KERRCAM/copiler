@@ -20,7 +20,9 @@ typedef struct AST_NODE{
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 
-astNode* newAstNode(token* t);
+astNode* newAstLeafNode(token* t);
+
+astNode* newAstNode(token* t, astNode* left, astNode* right);
 
 void deleteAstNode(astNode* node); // recursively frees the whole tree if called on root node
 
