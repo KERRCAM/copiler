@@ -6,7 +6,7 @@
 
 // LOCAL IMPORTS
 #include <ast.h>
-
+#include <lexer.h>
 /*--------------------------------------------------------------------------------------------------------------------*/
 
 static int precedence[] = {
@@ -36,9 +36,9 @@ void deleteAstPtr(astPtr* ap);
 
 int getPrecedence(token* t);
 
-astNode* parseExpression(astPtr* ap, int preLvl);
+astNode* parseExpression(astPtr* ap, int preLvl, scanner* s);
 
-astNode* parser(astPtr* ap);
+astNode* parser(astPtr* ap, scanner* s);
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 

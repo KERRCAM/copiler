@@ -39,10 +39,10 @@ int main(){
 
     scanner* s = newScanner(input);
     lexer(s);
-    lexerDebug(s);
+    //lexerDebug(s);
 
     astPtr* ap = newAstPtr(s->tokens);
-    astNode* root = parser(ap);
+    astNode* root = parser(ap, s);
     parserDebug(root);
 
     deleteScanner(s);

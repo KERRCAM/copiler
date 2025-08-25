@@ -22,7 +22,7 @@ enum tokenType{
 
 typedef struct TOKEN{
 
-    int type;
+    int* type;
     int dataLength;
     char* data;
     int line;

@@ -11,7 +11,8 @@ token* newDynamicToken(int type){
 
     token* t = calloc(1, sizeof(*t));
 
-    t->type = type;
+    t->type = (int*)calloc(1, sizeof(int));
+    *t->type = type;
     t->data = NULL;
     t->dataLength = 1;
 
@@ -26,7 +27,8 @@ token* newStaticToken(int type, char data){
     token* t = calloc(1, sizeof(*t));
     t->data = calloc(1, sizeof(char));
 
-    t->type = type;
+    t->type = (int*)calloc(1, sizeof(int));
+    *t->type = type;
     t->data[0] = data;
     t->dataLength = 1;
 

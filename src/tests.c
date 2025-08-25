@@ -11,7 +11,7 @@ void lexerDebug(scanner* s){
     FILE* fp = fopen("debug/lexerOutput", "w");
 
     for (int i = 0; i < s->tokensSize; i++){
-        fprintf(fp, "Type: %d  |  Data: %s\n", s->tokens[i].type, s->tokens[i].data);
+        fprintf(fp, "Type: %d  |  Data: %s\n", *(s->tokens[i].type), s->tokens[i].data);
     }
 
     fclose(fp);
