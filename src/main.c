@@ -39,7 +39,7 @@ int main(){
 
     scanner* s = newScanner(input);
     lexer(s);
-    //lexerDebug(s);
+    lexerDebug(s);
 
     astNode* root = parser(s);
     parserDebug(root);

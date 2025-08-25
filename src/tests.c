@@ -10,7 +10,7 @@ void lexerDebug(scanner* s){
 
     FILE* fp = fopen("debug/lexerOutput", "w");
 
-    for (int i = 0; i < s->tokensSize; i++){
+    for (int i = 1; i < s->tokensSize; i++){
         fprintf(fp, "Type: %d  |  Data: %s\n", *(s->tokens[i].type), s->tokens[i].data);
     }
 
