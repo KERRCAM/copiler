@@ -41,8 +41,7 @@ int main(){
     lexer(s);
     //lexerDebug(s);
 
-    astPtr* ap = newAstPtr(s->tokens);
-    astNode* root = parser(ap, s);
+    astNode* root = parser(s);
     parserDebug(root);
 
     deleteScanner(s);

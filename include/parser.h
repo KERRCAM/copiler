@@ -36,9 +36,9 @@ void deleteAstPtr(astPtr* ap);
 
 int getPrecedence(token* t);
 
-astNode* parseExpression(astPtr* ap, int preLvl, scanner* s);
+astNode* parseExpression(scanner* s, int preLvl);
 
-astNode* parser(astPtr* ap, scanner* s);
+astNode* parser(scanner* s);
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 

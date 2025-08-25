@@ -7,28 +7,6 @@
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 
-astPtr* newAstPtr(token* tokens){
-
-    astPtr* ap = calloc(1, sizeof(*ap));
-
-    ap->tokens = tokens;
-    ap->i = 1;
-    token* t = &tokens[1];
-    ap->currToken = &t;
-    return ap;
-
-}
-
-/*--------------------------------------------------------------------------------------------------------------------*/
-
-void deleteAstPtr(astPtr* ap){
-
-    free(ap);
-
-}
-
-/*--------------------------------------------------------------------------------------------------------------------*/
-
 int getPrecedence(token* t){
 
     int p = precedence[*t->type];
@@ -39,17 +17,7 @@ int getPrecedence(token* t){
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 
-void iterateAstPtr(astPtr* ap){
-
-    ap->i++;
-    token* t = &ap->tokens[ap->i];
-    ap->currToken = &t;
-
-}
-
-/*--------------------------------------------------------------------------------------------------------------------*/
-
-astNode* parseExpression(astPtr* ap, int preLvl, scanner* s){
+astNode* parseExpression(scanner* s, int preLvl){
 
     astNode* left = newAstLeafNode(newStaticToken(-1, EOF));
     astNode* parent = NULL;
@@ -61,7 +29,6 @@ astNode* parseExpression(astPtr* ap, int preLvl, scanner* s){
         exit(1);
     }
 
-    iterateAstPtr(ap);
     s->pos++;
 
     if (*(s->tokens[s->pos].type) == EOF_TOKEN){ return parent;}
@@ -74,9 +41,8 @@ astNode* parseExpression(astPtr* ap, int preLvl, scanner* s){
     }
 
     preLvl = getPrecedence(&s->tokens[s->pos]);
-    iterateAstPtr(ap);
     s->pos++;
-    parent->right = parseExpression(ap, preLvl, s);
+    parent->right = parseExpression(s, preLvl);
 
     return parent;
 
@@ -84,16 +50,16 @@ astNode* parseExpression(astPtr* ap, int preLvl, scanner* s){
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 
-astNode* parser(astPtr* ap, scanner* s){
-
-    // if (ap->tokens[ap->i].data == EOF_TOKEN){
-    //     printf("WARNING: File is empty\n");
-    //     exit(0);
-    // }
+astNode* parser(scanner* s){
 
     s->pos = 1;
 
-    astNode* root = parseExpression(ap, -1, s);
+    if (s->tokens[s->pos].data == EOF_TOKEN){
+        printf("WARNING: File is empty\n");
+        exit(0);
+    }
+
+    astNode* root = parseExpression(s, -1);
 
     return root;
 
