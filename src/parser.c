@@ -14,9 +14,7 @@ astPtr* newAstPtr(token* tokens){
     ap->tokens = tokens;
     ap->i = 1;
     token* t = &tokens[1];
-    printf("%d\n", t->type);
     ap->currToken = &t;
-    printf("%d\n", (*ap->currToken)->type);
     return ap;
 
 }
@@ -56,20 +54,13 @@ astNode* parseExpression(astPtr* ap, int preLvl){
     astNode* left = newAstLeafNode(newStaticToken(-1, EOF));
     astNode* parent = NULL;
 
-    // printf("%s\n", (*ap->currToken)->data);
-    // printf("%d\n", (*ap->currToken)->type);
     if ((*ap->currToken)->type == NUMBER){
         parent = newAstLeafNode(*ap->currToken);
     } else {
         printf("err\n");
     }
 
-    // printf("FIRST P: %s, %d\n\n", parent->attributes->data, preLvl);
-
     iterateAstPtr(ap);
-
-    // printf("%s\n", (*ap->currToken)->data);
-    // printf("%s\n", parent->attributes->data);
 
     if ((*ap->currToken)->type == EOF_TOKEN){ return parent;}
 
@@ -112,18 +103,7 @@ astNode* parser(astPtr* ap){
 
     return root;
 
+
 }
 
 /*--------------------------------------------------------------------------------------------------------------------*/
-
-
-/*
-
-if number Y else N
-next
-if opp Y
-
-
-exp(ap, )
-
-*/

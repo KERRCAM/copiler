@@ -133,6 +133,7 @@ void scanToken(scanner* s){
 
 void lexer(scanner* s){
 
+    iterateScanner(s);
     scanToken(s);
     addToken(s, newStaticToken(EOF_TOKEN, EOF)); // End of tokens marker so a while loop can be used to iterate on it
 

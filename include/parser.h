@@ -23,8 +23,8 @@ static int precedence[] = {
 typedef struct AST_POINTER{
 
     int i;
-    token* tokens;
     token** currToken;
+    token* tokens;
 
 } astPtr;
 

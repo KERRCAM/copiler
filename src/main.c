@@ -42,9 +42,6 @@ int main(){
     lexerDebug(s);
 
     astPtr* ap = newAstPtr(s->tokens);
-    printf("a%d\n", (*ap->currToken)->type);
-    printf("b%d\n", (*ap->currToken)->type);
-    printf("c%d\n", (*ap->currToken)->type);
     astNode* root = parser(ap);
     parserDebug(root);
 
