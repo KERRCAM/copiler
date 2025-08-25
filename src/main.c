@@ -34,7 +34,7 @@ char* readInput(char* path){
 
 int main(){
 
-    char* srcPath = "testFiles/singleExp.txt";
+    char* srcPath = "testFiles/happensToWork.txt";
     char* input = readInput(srcPath);
 
     scanner* s = newScanner(input);
