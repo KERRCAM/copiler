@@ -17,7 +17,7 @@ int getPrecedence(token* t){
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 
-astNode* parseExpression(scanner* s, int preLvl){
+astNode* parseExpression(scanner* s, int preLvl){ // TODO - logic for this func needs some re thinking
 
     astNode* left = newAstLeafNode(newStaticToken(-1, EOF));
     astNode* parent = NULL;
@@ -62,7 +62,6 @@ astNode* parser(scanner* s){
     astNode* root = parseExpression(s, -1);
 
     return root;
-
 
 }
 
