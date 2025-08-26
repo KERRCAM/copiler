@@ -17,7 +17,7 @@ int getPrecedence(token* t){
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 
-astNode* parseExpression(scanner* s, int preLvl){ // TODO - logic for this func needs some re thinking
+astNode* parseExpressionOLD(scanner* s, int preLvl){ // TODO - logic for this func needs some re thinking
 
     astNode* left = newAstLeafNode(newStaticToken(-1, EOF));
     astNode* parent = NULL;
@@ -48,6 +48,26 @@ astNode* parseExpression(scanner* s, int preLvl){ // TODO - logic for this func 
 
 }
 
+astNode* parseExpression(scanner* s, int preLvl){
+
+    astNode* left = newAstLeafNode(newStaticToken(-1, EOF));
+    astNode* parent = NULL;
+
+    if (*(s->tokens[s->pos].type) == NUMBER){
+        left = newAstLeafNode(&s->tokens[s->pos]);
+    } else {
+        printf("ERROR: Invalid syntax at line %d\n", s->tokens[s->pos].line);
+        exit(1);
+    }
+
+    s->pos++;
+
+    if (getPrecedence(&s->tokens[s->pos]) > preLvl){
+
+    }
+
+}
+
 /*--------------------------------------------------------------------------------------------------------------------*/
 
 astNode* parser(scanner* s){
@@ -59,10 +79,22 @@ astNode* parser(scanner* s){
         exit(0);
     }
 
-    astNode* root = parseExpression(s, -1);
+    astNode* root = parseExpression(s, 1);
 
     return root;
 
 }
 
 /*--------------------------------------------------------------------------------------------------------------------*/
+
+/*
+
+t1 should be num
+if t2 add -> go forward
+
+t1 should be num
+if t2 is x -> go forward
+t3 should num
+if t4 add then 
+
+*/
