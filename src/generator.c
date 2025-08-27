@@ -10,7 +10,10 @@
 // resisters arr (useful as a queue (or stack)? -> pop off to use, put back when done)
 // ops arr
 
-static char* registers[31] = {
+int stackPointer = 30;
+int stackSize = 30;
+
+char* registers[31] = {
     "X0",
     "X1",
     "X2",
@@ -44,8 +47,24 @@ static char* registers[31] = {
     "X30",
 };
 
-static char* opcodes[10] = {
-    
+char* opcodes[10] = {
+
+}
+
+/*--------------------------------------------------------------------------------------------------------------------*/
+
+void freeRegister(char* reg){
+
+    registers[stackPointer] = reg;
+
+}
+
+/*--------------------------------------------------------------------------------------------------------------------*/
+
+char* popRegister(){
+
+    return registers[stackPointer];
+
 }
 
 /*--------------------------------------------------------------------------------------------------------------------*/
