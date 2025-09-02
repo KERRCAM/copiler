@@ -1,5 +1,6 @@
 // LIBRARY IMPORTS
-
+#include <stdio.h>
+#include <stdlib.h>
 
 // LOCAL IMPORTS
 #include <generator.h>
@@ -13,7 +14,7 @@
 int stackPointer = 30;
 int stackSize = 30;
 
-char* registers[31] = {
+char* registers[31] = { // The general registers
     "X0",
     "X1",
     "X2",
@@ -69,6 +70,14 @@ char* popRegister(){
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 
+void setup(FILE* fp){
+
+    fprintf(fp, ".global _start");
+
+}
+
+/*--------------------------------------------------------------------------------------------------------------------*/
+
 void exp(int operator, char* arg, char* arg); // construct asm expr
 
 /*--------------------------------------------------------------------------------------------------------------------*/
@@ -86,6 +95,17 @@ void postOrderSearch(astNode* node){ // will give us left arg, right arg then op
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 
+void generateAssembly(char* path, astNode* root){
+
+
+    FILE* fp = fopen(path, "w");
+
+    setup(fp);
+
+
+}
+
+/*--------------------------------------------------------------------------------------------------------------------*/
 
 /* get result
 

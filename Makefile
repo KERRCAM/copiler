@@ -20,3 +20,6 @@ asm: assembly/test.o
 
 test.o: assembly/test.asm
 	as -o assembly/test.o assembly/test.asm
+
+ra:
+	./builds/test
