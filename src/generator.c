@@ -4,7 +4,6 @@
 
 // LOCAL IMPORTS
 #include <generator.h>
-#include <ast.h>
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 
@@ -49,8 +48,8 @@ char* registers[31] = { // The general registers
 };
 
 char* opcodes[10] = {
-
-}
+    ""
+};
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 
@@ -72,13 +71,13 @@ char* popRegister(){
 
 void setup(FILE* fp){
 
-    fprintf(fp, ".global _start");
+    fprintf(fp, ".global _start\n_start:");
 
 }
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 
-void exp(int operator, char* arg, char* arg); // construct asm expr
+void asmExpression(int operator, char* arg1, char* arg2); // construct asm expr
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 
@@ -87,6 +86,7 @@ void postOrderSearch(astNode* node){ // will give us left arg, right arg then op
     if (node->right == NULL){
         // load value into reg on top of stack
         // return reg
+        return;
     }
 
 
@@ -96,7 +96,6 @@ void postOrderSearch(astNode* node){ // will give us left arg, right arg then op
 /*--------------------------------------------------------------------------------------------------------------------*/
 
 void generateAssembly(char* path, astNode* root){
-
 
     FILE* fp = fopen(path, "w");
 

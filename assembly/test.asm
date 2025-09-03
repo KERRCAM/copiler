@@ -2,15 +2,8 @@
 .align 2
 
 
-_start: mov X0, #1
-        adr X1, helloworld
-        mov X2, #13
-        mov X16, #4
+_start:
+        mov x0, 255 // 255 max value -> 0 or 256 will exit clean then 257 goes back to 1
+        mov x1, 100
+        mov x16, 1
         svc 0
-
-
-        mov     X0, #0
-        mov     X16, #1
-        svc     0
-
-helloworld:      .ascii  "Hello World!\n"

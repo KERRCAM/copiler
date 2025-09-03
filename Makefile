@@ -15,7 +15,8 @@ r:
 c:
 	rm $(BUILD_DIR)/$(OBJ_NAME)
 
-asm: assembly/test.o
+asm:
+	make test.o
 	ld -o $(BUILD_DIR)/test assembly/test.o -lSystem -syslibroot `xcrun -sdk macosx --show-sdk-path` -e _start -arch arm64
 
 test.o: assembly/test.asm
@@ -23,3 +24,14 @@ test.o: assembly/test.asm
 
 ra:
 	./builds/test
+
+ca:
+	rm assembly/test.o
+	rm builds/test
+
+
+ba: assembly/demo.o
+	ld -o $(BUILD_DIR)/demo assembly/demo.o -lSystem -syslibroot `xcrun -sdk macosx --show-sdk-path` -e _start -arch arm64
+
+demo.o: assembly/demo.asm
+	as -o assembly/demo.o assembly/demo.asm
